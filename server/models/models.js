@@ -1,14 +1,20 @@
 const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
-const {fallback_application_name} = require("pg/lib/defaults");
+//const {fallback_application_name} = require("pg/lib/defaults");
 
-const User = sequelize.define('user', {
+
+const  Accounts = sequelize.define('accounts', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    password: {type: DataTypes.STRING},
     email: {type: DataTypes.STRING, unique: true,},
-    name: {type: DataTypes.STRING, unique: true,},
-    organization: {type: DataTypes.STRING, unique: true},
-    rolle: {type: DataTypes.STRING, defaultValue: "USER"},
+    // rolle: {type: DataTypes.STRING, defaultValue: "USER"},
+    //  surname: {type: DataTypes.STRING, unique: true,},
+    //  name: {type: DataTypes.STRING, unique: true,},
+    //  organization: {type: DataTypes.STRING, unique: true},
 })
+
+
+
 
 const Organization = sequelize.define('organization', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
@@ -56,25 +62,26 @@ const Assembling = sequelize.define('assembling', {
 
 const FcmId = sequelize.define('fcmId', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
-    userId: {type: DataTypes.INTEGER, unique:true},
+    accountsId: {type: DataTypes.INTEGER, unique:true},
     fcmId: {type:DataTypes.STRING, unique:true},
     token:{type:DataTypes.STRING,unique:true}
 })
 
-User.hasOne(Report)
-Report.belongsTo(User)
 
-User.hasOne(Role)
-Role.belongsTo(User)
+Accounts.hasOne(Report)
+Report.belongsTo(Accounts)
 
-User.hasOne(FcmId)
-FcmId.belongsTo(User)
+Accounts.hasOne(Role)
+Role.belongsTo(Accounts)
 
-User.hasMany(Organization)
-Organization.belongsTo(User)
+Accounts.hasOne(FcmId)
+FcmId.belongsTo(Accounts)
 
-User.belongsToMany(Project, {through: UsersProject})
-Project.belongsToMany(User, {through: UsersProject})
+Accounts.hasMany(Organization)
+Organization.belongsTo(Accounts)
+
+Accounts.belongsToMany(Project, {through: UsersProject})
+Project.belongsToMany(Accounts, {through: UsersProject})
 
 Project.hasMany(Organization)
 Organization.belongsTo(Project)
@@ -89,7 +96,7 @@ Report.hasMany(Screenshot)
 Screenshot.belongsTo(Report)
 
 module.exports = {
-    User,
+    Accounts,
     Organization,
     Assembling,
     Report,
@@ -99,6 +106,11 @@ module.exports = {
     Project,
     UsersProject
 }
+
+
+
+
+
 
 
 

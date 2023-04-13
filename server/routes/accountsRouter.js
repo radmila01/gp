@@ -1,14 +1,14 @@
 const Router = require('express')
 const router = new Router()
-const userController = require('../controllers/userController')
+const accountsController = require('../controllers/accountsController')
 
 /**
  * @swagger
  * paths:
- *   /user/{userId}:
+ *   /Accounts/{accountsId}:
  *     get:
  *       summary: Get a user by ID
- *       tags: [Users]
+ *       tags: [Accounts]
  *       parameters:
  *         ...
  *       responses:
@@ -17,7 +17,7 @@ const userController = require('../controllers/userController')
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/Account'
  *         '400':
  *              description: Invalid ID value
  *         '404':
@@ -36,7 +36,7 @@ const userController = require('../controllers/userController')
  *               schema:
  *                 type: array
  *                 items:
- *                   $ref: '#/components/schemas/User'
+ *                   $ref: '#/components/schemas/Account'
  *
  *      /user/registration:
  *     post:
@@ -45,17 +45,17 @@ const userController = require('../controllers/userController')
  *       description: Registration
  *       operationId: registration
  *       requestBody:
- *         description: Create a new User
+ *         description: Create a new Account
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/Accounts'
  *           application/xml:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/Accounts'
  *           application/x-www-form-urlencoded:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/Accounts'
  *         required: true
  *       responses:
  *         '200':
@@ -63,10 +63,10 @@ const userController = require('../controllers/userController')
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/Accounts'
  *             application/xml:
  *               schema:
- *                 $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/Accounts'
  *         '405':
  *           description: Invalid input
  *
@@ -98,17 +98,17 @@ const userController = require('../controllers/userController')
 /**
  * @swagger
  * tags:
- *   name: Users
+ *   name: Accounts
  *   description: The users managing API
  */
 
-router.post('/registration', userController.registration)
-router.post('/login', userController.login)
+router.post('/', accountsController.registration)
+router.post('/login', accountsController.login)
 
 
-router.get('/auth', userController.check)
-router.get('/getAll',userController.getAll)
-router.get('/:id',userController.getOne)
+router.get('/auth', accountsController.check)
+router.get('/getAll',accountsController.getAll)
+router.get('/:id',accountsController.getOne)
 
 
 module.exports = router
