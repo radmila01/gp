@@ -14,8 +14,8 @@ class AccountsController {
 
     async registration(req, res, next) {
 
-        const {email, password} = req.body
-        if (!email || !password) {
+        const {email, password,fio} = req.body
+        if (!email || !password || !fio) {
             return next(ApiError.badRequest('Некорректный email или password'))
         }
         const candidate = await Accounts.findOne({where: {email}})
@@ -23,8 +23,8 @@ class AccountsController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const accounts = await Accounts.create({email, password: hashPassword})
-        const token = generateJwt(accounts.id, accounts.email, accounts.rolle,accounts.password)
+        const accounts = await Accounts.create({ email, password: hashPassword,fio})
+        const token = generateJwt(accounts.id, accounts.email, accounts.password)
         return res.json({token})
     }
 
