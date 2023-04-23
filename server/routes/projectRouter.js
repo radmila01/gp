@@ -1,20 +1,20 @@
 const Router = require('express')
 const router = new Router()
 const projectController = require('../controllers/projectController')
-const userController = require("../controllers/userController");
+const accountsController = require("../controllers/accountsController");
 
 /**
  * @swagger
  * paths:
  *   /project/{projectId}:
  *     get:
- *       summary: Get a user by ID
+ *       summary: Get a project by ID
  *       tags: [Projects]
  *       parameters:
  *         ...
  *       responses:
  *         '200':
- *           description: A single user.
+ *           description: A single project.
  *           content:
  *             application/json:
  *               schema:
@@ -22,7 +22,13 @@ const userController = require("../controllers/userController");
  *         '400':
  *              description: Invalid ID value
  *         '404':
- *              description: User not found
+ *              description: Project not found
+ *
+ *     delete:
+ *       summary: Delete the project
+ *       tags: [Projects]
+ *       description: Deleting the project
+ *       operationId: delete
  *
  *   /project:
  *     get:
@@ -31,7 +37,7 @@ const userController = require("../controllers/userController");
  *       operationId: getAll
  *       responses:
  *         '200':
- *           description: A list of users.
+ *           description: A list of projects.
  *           content:
  *             application/json:
  *               schema:
@@ -42,6 +48,7 @@ const userController = require("../controllers/userController");
  *     post:
  *       summary: Create a project
  *       tags: [Projects]
+ *       description: Creating the project
  *       operationId: create
  *       requestBody:
  *         description: Create a new project
@@ -58,7 +65,7 @@ const userController = require("../controllers/userController");
  *         required: true
  *       responses:
  *         '200':
- *           description: OK
+ *           description: Successfully created
  *           content:
  *             application/json:
  *               schema:
@@ -68,6 +75,39 @@ const userController = require("../controllers/userController");
  *                 $ref: '#/components/schemas/Project'
  *         '405':
  *           description: Invalid input
+ *
+ *     put:
+ *       summary: Update the project
+ *       tags: [Projects]
+ *       description: Updating the project
+ *       operationId: update
+ *       requestBody:
+ *         description: Create a new project
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Project'
+ *           application/xml:
+ *             schema:
+ *               $ref: '#/components/schemas/Project'
+ *           application/x-www-form-urlencoded:
+ *             schema:
+ *               $ref: '#/components/schemas/Project'
+ *         required: true
+ *       responses:
+ *         '200':
+ *           description: Successfully created
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Project'
+ *             application/xml:
+ *               schema:
+ *                 $ref: '#/components/schemas/Project'
+ *         '405':
+ *           description: Invalid input
+ *
+ *
  *
  * components:
  *   schemas:
@@ -80,28 +120,22 @@ const userController = require("../controllers/userController");
  *            name:
  *              type: string
  *              description: name
- *            email:
- *              type: string
- *              description: email
- *            role:
- *              type: string
- *              description: role
- *            organization:
- *              type: string
- *              description: organization
- *
  */
 
 /**
  * @swagger
  * tags:
  *   name: Projects
- *   description: The users managing API
+ *   description: The projects managing API
  */
 
 router.post('/', projectController.create)
+
 router.put('/', projectController.update)
+
 router.get('/getAll',projectController.getAll)
 router.get('/:id',projectController.getOne)
-router.delete('/', projectController.delete)
+
+router.delete('/:id', projectController.delete)
+
 module.exports = router

@@ -5,15 +5,15 @@ const accountsController = require('../controllers/accountsController')
 /**
  * @swagger
  * paths:
- *   /Accounts/{accountsId}:
+ *   /accounts/{accountsId}:
  *     get:
- *       summary: Get a user by ID
+ *       summary: Get an account by ID
  *       tags: [Accounts]
  *       parameters:
  *         ...
  *       responses:
  *         '200':
- *           description: A single user.
+ *           description: A single account.
  *           content:
  *             application/json:
  *               schema:
@@ -21,16 +21,18 @@ const accountsController = require('../controllers/accountsController')
  *         '400':
  *              description: Invalid ID value
  *         '404':
- *              description: User not found
+ *              description: Account not found
  *
- *   /user:
+ *
+ *
+ *   /accounts:
  *     get:
- *       summary: Get all users
- *       tags: [Users]
+ *       summary: Get all accounts
+ *       tags: [Accounts]
  *       operationId: getAll
  *       responses:
  *         '200':
- *           description: A list of users.
+ *           description: A list of accounts.
  *           content:
  *             application/json:
  *               schema:
@@ -38,10 +40,9 @@ const accountsController = require('../controllers/accountsController')
  *                 items:
  *                   $ref: '#/components/schemas/Account'
  *
- *      /user/registration:
  *     post:
  *       summary: Registration
- *       tags: [Users]
+ *       tags: [Accounts]
  *       description: Registration
  *       operationId: registration
  *       requestBody:
@@ -59,7 +60,7 @@ const accountsController = require('../controllers/accountsController')
  *         required: true
  *       responses:
  *         '200':
- *           description: Successful operation
+ *           description: Successful created
  *           content:
  *             application/json:
  *               schema:
@@ -70,11 +71,63 @@ const accountsController = require('../controllers/accountsController')
  *         '405':
  *           description: Invalid input
  *
+ *   /accounts/login:
+ *     post:
+ *       summary: Logging to account
+ *       tags: [Accounts]
+ *       description: Logging to account
+ *       operationId: login
+ *       requestBody:
+ *         description: Logging to account
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Accounts'
+ *           application/xml:
+ *             schema:
+ *               $ref: '#/components/schemas/Accounts'
+ *           application/x-www-form-urlencoded:
+ *             schema:
+ *               $ref: '#/components/schemas/Accounts'
+ *         required: true
+ *       responses:
+ *         '200':
+ *           description: Successful created
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Accounts'
+ *             application/xml:
+ *               schema:
+ *                 $ref: '#/components/schemas/Accounts'
+ *         '405':
+ *           description: Invalid input
+ *
+ *   /accounts/auth:
+ *      get:
+ *        summary: Check JWT
+ *        tags: [Accounts]
+ *        description: Logging to account
+ *        operationId: check
+ *        requestBody:
+ *         description: Check JWT
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Accounts'
+ *           application/xml:
+ *             schema:
+ *               $ref: '#/components/schemas/Accounts'
+ *           application/x-www-form-urlencoded:
+ *             schema:
+ *               $ref: '#/components/schemas/Accounts'
+ *         required: true
+ *
  *
  *
  * components:
  *   schemas:
- *     User:
+ *     Account:
  *       type: object
  *       properties:
  *            id:
@@ -92,14 +145,13 @@ const accountsController = require('../controllers/accountsController')
  *            organization:
  *              type: string
  *              description: organization
- *
  */
 
 /**
  * @swagger
  * tags:
  *   name: Accounts
- *   description: The users managing API
+ *   description: The accounts managing API
  */
 
 router.post('/', accountsController.registration)
