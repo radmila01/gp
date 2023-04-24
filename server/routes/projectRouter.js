@@ -1,8 +1,8 @@
 const Router = require('express')
 const router = new Router()
 const projectController = require('../controllers/projectController')
-const userController = require("../controllers/userController");
-
+const accoutsController = require("../controllers/accountsController")
+/*
 /**
  * @swagger
  * paths:
@@ -91,7 +91,7 @@ const userController = require("../controllers/userController");
  *              description: organization
  *
  */
-
+/*
 /**
  * @swagger
  * tags:

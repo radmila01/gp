@@ -2,7 +2,7 @@ const Router = require('express')
 const router = new Router()
 const accountsController = require('../controllers/accountsController')
 
-/**
+/*
  * @swagger
  * paths:
  *   /Accounts/{accountsId}:
@@ -95,7 +95,7 @@ const accountsController = require('../controllers/accountsController')
  *
  */
 
-/**
+/*
  * @swagger
  * tags:
  *   name: Accounts
