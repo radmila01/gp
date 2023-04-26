@@ -1,6 +1,6 @@
 const  uuid = require('uuid')
 const path = require('path')
-const {Screenshot, Project}= require('../models/models')
+const {Screenshot}= require('../models/models')
 
 const ApiError = require('../error/ApiError');
 
@@ -10,7 +10,7 @@ class screenController{
         const {id,name} = req.body
             const {img} = req.files
         let fileName=uuid.v4()+".jpg"
-            img.mv(path.resolve(__dirname ,'..','static',fileName))
+            img.mv(path.resolve(__dirname ,'..','images',fileName))
             const screenshots = await  Screenshot.create({id,name:name,img: fileName})
             return res.json(screenshots) }
 

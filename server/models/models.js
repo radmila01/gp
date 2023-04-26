@@ -32,7 +32,9 @@ const Report = sequelize.define('report', {
 
 const Project = sequelize.define('project', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: false,},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    description: {type: DataTypes.STRING, unique: false,},
+    img: {type: DataTypes.STRING, allowNull: false},
 })
 
 const UsersProject = sequelize.define('usersProject', {

@@ -1,3 +1,5 @@
+const uuid = require("uuid");
+const path = require('path');
 
 const {Project}= require('../models/models')
 
@@ -8,10 +10,21 @@ const {rows} = require("pg/lib/defaults");
 class projectController {
 
     async create(req, res) {
-        const {name} = req.body
-        const project = await Project.create({name: name})
-        return res.json(project)
-    }
+
+        const {id,name,description} = req.body
+        const {img} = req.files
+        let fileName=uuid.v4()+".jpg"
+        img.mv(path.resolve(__dirname ,'..','static',fileName))
+        const project = await  Project.create({id,name:name,description:description,img: fileName})
+        return res.json(project) }
+
+
+
+    /* async create(req, res) {
+         const {name} = req.body
+         const project = await Project.create({name: name})
+         return res.json(project)
+     }*/
 
     async getAll(req, res) {
         const projects = await Project.findAll()
