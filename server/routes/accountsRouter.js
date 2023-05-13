@@ -2,6 +2,40 @@ const Router = require('express')
 const router = new Router()
 const accountsController = require('../controllers/accountsController')
 
+
+/**
+ *@swagger
+ *components:
+ *  schemas:
+ *      Account:
+ *          type: object
+ *          required:
+ *              - id
+ *              - name
+ *          properties:
+ *              id:
+ *                  type: integer
+ *                  description: The auto-generated id of the account
+ *              name:
+ *                  type: string
+ *                  description: The name of the account
+ *              email:
+ *                  type: string
+ *                  description: The account email
+ *              role:
+ *                  type: string
+ *                  description: The account role
+ *              organization:
+ *                  type: string
+ *                  description: The account organization
+ *          example:
+ *              id: 7
+ *              name: TestAccount
+ *              email: TestEmail@email.com
+ *              role: Admin
+ *              organization: Test
+ */
+
 /**
  * @swagger
  * paths:
@@ -10,7 +44,12 @@ const accountsController = require('../controllers/accountsController')
  *       summary: Get an account by ID
  *       tags: [Accounts]
  *       parameters:
- *         ...
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: The account id
  *       responses:
  *         '200':
  *           description: A single account.
@@ -50,13 +89,13 @@ const accountsController = require('../controllers/accountsController')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *           application/xml:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *           application/x-www-form-urlencoded:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *         required: true
  *       responses:
  *         '200':
@@ -64,10 +103,10 @@ const accountsController = require('../controllers/accountsController')
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/Accounts'
+ *                 $ref: '#/components/schemas/Account'
  *             application/xml:
  *               schema:
- *                 $ref: '#/components/schemas/Accounts'
+ *                 $ref: '#/components/schemas/Account'
  *         '405':
  *           description: Invalid input
  *
@@ -82,13 +121,13 @@ const accountsController = require('../controllers/accountsController')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *           application/xml:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *           application/x-www-form-urlencoded:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *         required: true
  *       responses:
  *         '200':
@@ -96,10 +135,10 @@ const accountsController = require('../controllers/accountsController')
  *           content:
  *             application/json:
  *               schema:
- *                 $ref: '#/components/schemas/Accounts'
+ *                 $ref: '#/components/schemas/Account'
  *             application/xml:
  *               schema:
- *                 $ref: '#/components/schemas/Accounts'
+ *                 $ref: '#/components/schemas/Account'
  *         '405':
  *           description: Invalid input
  *
@@ -114,37 +153,14 @@ const accountsController = require('../controllers/accountsController')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *           application/xml:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *           application/x-www-form-urlencoded:
  *             schema:
- *               $ref: '#/components/schemas/Accounts'
+ *               $ref: '#/components/schemas/Account'
  *         required: true
- *
- *
- *
- * components:
- *   schemas:
- *     Account:
- *       type: object
- *       properties:
- *            id:
- *              type: integer
- *              description: id
- *            name:
- *              type: string
- *              description: name
- *            email:
- *              type: string
- *              description: email
- *            role:
- *              type: string
- *              description: role
- *            organization:
- *              type: string
- *              description: organization
  */
 
 /**

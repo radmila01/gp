@@ -3,6 +3,28 @@ const router = new Router()
 const projectController = require('../controllers/projectController')
 const accountsController = require("../controllers/accountsController");
 
+
+/**
+ *@swagger
+ *components:
+ *  schemas:
+ *      Project:
+ *          type: object
+ *          required:
+ *              - id
+ *              - name
+ *          properties:
+ *              id:
+ *                  type: integer
+ *                  description: The auto-generated id of the project
+ *              name:
+ *                  type: string
+ *                  description: The name of the project
+ *          example:
+ *              id: 7
+ *              name: TestProject
+ */
+
 /**
  * @swagger
  * paths:
@@ -11,7 +33,12 @@ const accountsController = require("../controllers/accountsController");
  *       summary: Get a project by ID
  *       tags: [Projects]
  *       parameters:
- *         ...
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: The project id
  *       responses:
  *         '200':
  *           description: A single project.
@@ -29,6 +56,16 @@ const accountsController = require("../controllers/accountsController");
  *       tags: [Projects]
  *       description: Deleting the project
  *       operationId: delete
+ *       parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: The project id
+ *       responses:
+ *         '200':
+ *           description: The project was deleted.
  *
  *   /project:
  *     get:
@@ -106,20 +143,6 @@ const accountsController = require("../controllers/accountsController");
  *                 $ref: '#/components/schemas/Project'
  *         '405':
  *           description: Invalid input
- *
- *
- *
- * components:
- *   schemas:
- *     Project:
- *       type: object
- *       properties:
- *            id:
- *              type: integer
- *              description: id
- *            name:
- *              type: string
- *              description: name
  */
 
 /**
