@@ -89,24 +89,22 @@ const accountsController = require('../controllers/accountsController')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Account'
- *           application/xml:
- *             schema:
- *               $ref: '#/components/schemas/Account'
- *           application/x-www-form-urlencoded:
- *             schema:
- *               $ref: '#/components/schemas/Account'
+ *               type: object
+ *               properties:
+ *                  email:
+ *                      type: string
+ *                  password:
+ *                      type: string
+ *                  fio:
+ *                      type: string
+ *               example:
+ *                  email: admin@mail.ru
+ *                  password: 2efD43_
+ *                  fio: ADMIN
  *         required: true
  *       responses:
  *         '200':
  *           description: Successful created
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Account'
- *             application/xml:
- *               schema:
- *                 $ref: '#/components/schemas/Account'
  *         '405':
  *           description: Invalid input
  *
@@ -121,24 +119,19 @@ const accountsController = require('../controllers/accountsController')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Account'
- *           application/xml:
- *             schema:
- *               $ref: '#/components/schemas/Account'
- *           application/x-www-form-urlencoded:
- *             schema:
- *               $ref: '#/components/schemas/Account'
+ *               type: object
+ *               properties:
+ *                  email:
+ *                      type: string
+ *                  password:
+ *                      type: string
+ *               example:
+ *                  email: admin@mail.ru
+ *                  password: 2efD43_
  *         required: true
  *       responses:
  *         '200':
  *           description: Successful created
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Account'
- *             application/xml:
- *               schema:
- *                 $ref: '#/components/schemas/Account'
  *         '405':
  *           description: Invalid input
  *
@@ -153,14 +146,24 @@ const accountsController = require('../controllers/accountsController')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Account'
- *           application/xml:
- *             schema:
- *               $ref: '#/components/schemas/Account'
- *           application/x-www-form-urlencoded:
- *             schema:
- *               $ref: '#/components/schemas/Account'
+ *               type: object
+ *               properties:
+ *                  id:
+ *                      type: integer
+ *                  email:
+ *                      type: string
+ *                  rolle:
+ *                      type: string
+ *               example:
+ *                  id: 1
+ *                  email: admin@mail.ru
+ *                  password: 2efD43_
  *         required: true
+ *        responses:
+ *         '200':
+ *           description: Successful
+ *         '405':
+ *           description: Invalid input
  */
 
 /**

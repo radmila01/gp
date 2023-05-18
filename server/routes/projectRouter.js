@@ -20,9 +20,13 @@ const accountsController = require("../controllers/accountsController");
  *              name:
  *                  type: string
  *                  description: The name of the project
+ *              description:
+ *                  type: string
+ *                  description: Project description
  *          example:
  *              id: 7
  *              name: TestProject
+ *              description: Project description
  */
 
 /**
@@ -92,24 +96,22 @@ const accountsController = require("../controllers/accountsController");
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Project'
- *           application/xml:
- *             schema:
- *               $ref: '#/components/schemas/Project'
- *           application/x-www-form-urlencoded:
- *             schema:
- *               $ref: '#/components/schemas/Project'
+ *               type: object
+ *               properties:
+ *                  id:
+ *                      type: integer
+ *                  name:
+ *                      type: string
+ *                  description:
+ *                      type: string
+ *               example:
+ *                  id: 10
+ *                  name: Project
+ *                  description: Project description
  *         required: true
  *       responses:
  *         '200':
  *           description: Successfully created
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Project'
- *             application/xml:
- *               schema:
- *                 $ref: '#/components/schemas/Project'
  *         '405':
  *           description: Invalid input
  *
@@ -123,24 +125,19 @@ const accountsController = require("../controllers/accountsController");
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Project'
- *           application/xml:
- *             schema:
- *               $ref: '#/components/schemas/Project'
- *           application/x-www-form-urlencoded:
- *             schema:
- *               $ref: '#/components/schemas/Project'
+ *               type: object
+ *               properties:
+ *                  id:
+ *                      type: integer
+ *                  name:
+ *                      type: string
+ *               example:
+ *                  id: 1
+ *                  name: Project
  *         required: true
  *       responses:
  *         '200':
- *           description: Successfully created
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Project'
- *             application/xml:
- *               schema:
- *                 $ref: '#/components/schemas/Project'
+ *           description: Successfully updated
  *         '405':
  *           description: Invalid input
  */
