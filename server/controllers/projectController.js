@@ -19,7 +19,6 @@ class projectController {
         return res.json(project) }
 
 
-
     /* async create(req, res) {
          const {name} = req.body
          const project = await Project.create({name: name})

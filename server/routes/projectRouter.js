@@ -32,7 +32,22 @@ const accountsController = require("../controllers/accountsController");
 /**
  * @swagger
  * paths:
- *   /project/{projectId}:
+ *   /api/project/getAll:
+ *     get:
+ *       summary: Get all projects
+ *       tags: [Projects]
+ *       operationId: getAll
+ *       responses:
+ *         '200':
+ *           description: A list of projects.
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Project'
+ *
+ *   /api/project/{id}:
  *     get:
  *       summary: Get a project by ID
  *       tags: [Projects]
@@ -71,21 +86,7 @@ const accountsController = require("../controllers/accountsController");
  *         '200':
  *           description: The project was deleted.
  *
- *   /project:
- *     get:
- *       summary: Get all projects
- *       tags: [Projects]
- *       operationId: getAll
- *       responses:
- *         '200':
- *           description: A list of projects.
- *           content:
- *             application/json:
- *               schema:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/Project'
- *
+ *   /api/project:
  *     post:
  *       summary: Create a project
  *       tags: [Projects]

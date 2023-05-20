@@ -39,32 +39,7 @@ const accountsController = require('../controllers/accountsController')
 /**
  * @swagger
  * paths:
- *   /accounts/{accountsId}:
- *     get:
- *       summary: Get an account by ID
- *       tags: [Accounts]
- *       parameters:
- *        - in: path
- *          name: id
- *          schema:
- *              type: string
- *          required: true
- *          description: The account id
- *       responses:
- *         '200':
- *           description: A single account.
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Account'
- *         '400':
- *              description: Invalid ID value
- *         '404':
- *              description: Account not found
- *
- *
- *
- *   /accounts:
+ *   /api/accounts/getAll:
  *     get:
  *       summary: Get all accounts
  *       tags: [Accounts]
@@ -79,6 +54,28 @@ const accountsController = require('../controllers/accountsController')
  *                 items:
  *                   $ref: '#/components/schemas/Account'
  *
+ *
+ *   /api/accounts/{id}:
+ *     get:
+ *       summary: Get an account by ID
+ *       tags: [Accounts]
+ *       parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: The account id
+ *       responses:
+ *         '200':
+ *              description: A single account.
+ *         '400':
+ *              description: Invalid ID value
+ *         '404':
+ *              description: Account not found
+ *
+ *
+ *   /api/accounts:
  *     post:
  *       summary: Registration
  *       tags: [Accounts]
@@ -91,24 +88,25 @@ const accountsController = require('../controllers/accountsController')
  *             schema:
  *               type: object
  *               properties:
- *                  email:
- *                      type: string
- *                  password:
- *                      type: string
- *                  fio:
- *                      type: string
+ *                 email:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *                 fio:
+ *                   type: string
  *               example:
- *                  email: admin@mail.ru
- *                  password: 2efD43_
- *                  fio: ADMIN
+ *                 email: admin@mail.ru
+ *                 password: 2efD43_
+ *                 fio: ADMIN
  *         required: true
  *       responses:
  *         '200':
- *           description: Successful created
+ *              description: Successful created
  *         '405':
- *           description: Invalid input
+ *              description: Invalid input
  *
- *   /accounts/login:
+ *
+ *   /api/accounts/login:
  *     post:
  *       summary: Logging to account
  *       tags: [Accounts]
@@ -135,7 +133,7 @@ const accountsController = require('../controllers/accountsController')
  *         '405':
  *           description: Invalid input
  *
- *   /accounts/auth:
+ *   /api/accounts/auth:
  *      get:
  *        summary: Check JWT
  *        tags: [Accounts]
