@@ -14,8 +14,8 @@ class AccountsController {
 
     async registration(req, res, next) {
 
-        const {email, password,fio} = req.body
-        if (!email || !password || !fio) {
+        const {surname,nam,email, password} = req.body
+        if (!surname || !nam || !email || !password ) {
             return next(ApiError.badRequest('Некорректный email или password'))
         }
         const candidate = await Accounts.findOne({where: {email}})
@@ -23,8 +23,8 @@ class AccountsController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const accounts = await Accounts.create({ email, password: hashPassword,fio})
-        const token = generateJwt(accounts.id, accounts.email, accounts.password)
+        const accounts = await Accounts.create({surname,nam,email, password: hashPassword})
+        const token = generateJwt(accounts.id, accounts.seurname,accounts.nam, accounts.email, accounts.password)
         return res.json({token})
     }
 
@@ -61,8 +61,39 @@ async getAll(req,res){
         )
         return res.json(accounts)
     }
+
+async delete(req, res){
+
+    try {
+        const { id } = req.params;
+
+        // Поиск пользователя в базе данных по идентификатору
+        const accounts = await Accounts.findOne({ where: { id } });
+
+        // Проверка, найден ли пользователь
+        if (accounts) {
+            // Удаление пользователя из базы данных
+            await accounts.destroy();
+
+            // Отправка сообщения об успешном удалении
+            return res.json({ message: 'Пользователь успешно удален' });
+        } else {
+            // Отправка сообщения об ошибке, если пользователь не найден
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+    } catch (error) {
+        // Отправка сообщения об ошибке, если произошла ошибка при обращении к базе данных
+        return res.status(500).json({ message: 'Ошибка сервера' });
+    }
+
+
+
 }
 
+
+
+
+}
 module.exports = new AccountsController()
 
 

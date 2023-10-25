@@ -5,30 +5,57 @@ const {DataTypes} = require('sequelize')
 
 const  Accounts = sequelize.define('accounts', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    password: {type: DataTypes.STRING},
+    surname: {type: DataTypes.STRING, unique: true,},
+    nam: {type: DataTypes.STRING, unique: true,},
     email: {type: DataTypes.STRING, unique: true,},
-    // rolle: {type: DataTypes.STRING, defaultValue: "USER"},
-    //  surname: {type: DataTypes.STRING, unique: true,},
-    //  name: {type: DataTypes.STRING, unique: true,},
-    //  organization: {type: DataTypes.STRING, unique: true},
+    password: {type: DataTypes.STRING},
+     //role: {type: DataTypes.STRING, defaultValue: "USER"},
+     organization: {type: DataTypes.STRING, unique: true},
 })
+
+
 
 
 
 
 const Organization = sequelize.define('organization', {
-    id: {type: DataTypes.INTEGER, primaryKey: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
-})
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+    }
+});
 
 const Author = sequelize.define('author', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
 })
 
 const Report = sequelize.define('report', {
-    id: {type: DataTypes.INTEGER, primaryKey: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true,autoIncrement: true},
     comments: {type: DataTypes.STRING, unique: true},
+
 })
+const Image = sequelize.define('image', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    path: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    reportId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
+});
+
 
 const Project = sequelize.define('project', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -40,6 +67,12 @@ const Project = sequelize.define('project', {
 const UsersProject = sequelize.define('usersProject', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
 })
+
+
+const AccountOrganization = sequelize.define('usersProject', {
+    id: {type: DataTypes.INTEGER, primaryKey: true},
+})
+
 
 const Role = sequelize.define('role', {
     id: {type: DataTypes.INTEGER, primaryKey: true},
@@ -79,8 +112,11 @@ Role.belongsTo(Accounts)
 Accounts.hasOne(FcmId)
 FcmId.belongsTo(Accounts)
 
-Accounts.hasMany(Organization)
-Organization.belongsTo(Accounts)
+//Accounts.hasMany(Organization)
+//Organization.belongsTo(Accounts)
+
+Accounts.belongsToMany(Organization, { through: 'AccountOrganization' });
+Organization.belongsToMany(Accounts, { through: 'AccountOrganization' });
 
 Accounts.belongsToMany(Project, {through: UsersProject})
 Project.belongsToMany(Accounts, {through: UsersProject})
@@ -97,6 +133,10 @@ Report.belongsTo(Assembling)
 Report.hasMany(Screenshot)
 Screenshot.belongsTo(Report)
 
+Image.belongsTo(Report);
+Report.hasMany(Image);
+
+
 module.exports = {
     Accounts,
     Organization,
@@ -106,8 +146,11 @@ module.exports = {
     Screenshot,
     Author,
     Project,
-    UsersProject
+    UsersProject,
+    AccountOrganization,
+    Image
 }
+
 
 
 

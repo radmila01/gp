@@ -178,6 +178,8 @@ router.post('/login', accountsController.login)
 router.get('/auth', accountsController.check)
 router.get('/getAll',accountsController.getAll)
 router.get('/:id',accountsController.getOne)
+router.delete('/delete/:id',accountsController.delete)
+
 
 
 module.exports = router
