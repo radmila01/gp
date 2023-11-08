@@ -118,8 +118,8 @@ FcmId.belongsTo(Accounts)
 Accounts.belongsToMany(Organization, { through: 'AccountOrganization' });
 Organization.belongsToMany(Accounts, { through: 'AccountOrganization' });
 
-Accounts.belongsToMany(Project, {through: UsersProject})
-Project.belongsToMany(Accounts, {through: UsersProject})
+Project.belongsToMany(Accounts, { through: 'UsersProject' });
+Accounts.belongsToMany(Project, { through: 'UsersProject' });
 
 Project.hasMany(Organization)
 Organization.belongsTo(Project)

@@ -2,6 +2,7 @@ const ApiError = require('../error/apiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {Accounts} = require('../models/models')
+const {Project}= require('../models/models')
 
 const generateJwt = (id, email,password) => {
     return jwt.sign(
@@ -62,13 +63,13 @@ async getAll(req,res){
         return res.json(accounts)
     }
 
-async delete(req, res){
+async delete(req, res) {
 
     try {
-        const { id } = req.params;
+        const {id} = req.params;
 
         // Поиск пользователя в базе данных по идентификатору
-        const accounts = await Accounts.findOne({ where: { id } });
+        const accounts = await Accounts.findOne({where: {id}});
 
         // Проверка, найден ли пользователь
         if (accounts) {
@@ -76,19 +77,54 @@ async delete(req, res){
             await accounts.destroy();
 
             // Отправка сообщения об успешном удалении
-            return res.json({ message: 'Пользователь успешно удален' });
+            return res.json({message: 'Пользователь успешно удален'});
         } else {
             // Отправка сообщения об ошибке, если пользователь не найден
-            return res.status(404).json({ message: 'Пользователь не найден' });
+            return res.status(404).json({message: 'Пользователь не найден'});
         }
     } catch (error) {
         // Отправка сообщения об ошибке, если произошла ошибка при обращении к базе данных
-        return res.status(500).json({ message: 'Ошибка сервера' });
+        return res.status(500).json({message: 'Ошибка сервера'});
+    }
+}
+
+    async  addUserToProject(req, res, next) {
+        try {
+            const { surname, nam, email, projectId } = req.body;
+
+
+            // Проверьте, существует ли проект
+            const project = await Project.findByPk(projectId);
+            if (!project) {
+                return next(ApiError.internal('Проект не найден'));
+            }
+
+            // Найти пользователя по фамилии и имени
+            const accounts = await Accounts.findOne({
+                where: {
+                    surname,
+                    nam,
+                },
+            });
+
+            if (!accounts) {
+                return next(ApiError.internal('Пользователь не найден'));
+            }
+
+            // Сравните почту из базы данных с почтой из запроса
+            if (accounts.email !== email) {
+                return next(ApiError.internal('Неверно указана почта'));
+            }
+
+            // Добавьте пользователя к проекту
+            await project.addAccounts(accounts);
+
+            return res.json({ message: 'Пользователь успешно добавлен к проекту' });
+        } catch (error) {
+            return next(ApiError.internal('Произошла ошибка при добавлении пользователя к проекту'));
+        }
     }
 
-
-
-}
 
 
 

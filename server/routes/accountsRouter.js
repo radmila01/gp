@@ -180,6 +180,6 @@ router.get('/getAll',accountsController.getAll)
 router.get('/:id',accountsController.getOne)
 router.delete('/delete/:id',accountsController.delete)
 
-
+router.post('/users/projects/addUserToProject', accountsController.addUserToProject);
 
 module.exports = router
