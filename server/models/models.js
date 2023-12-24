@@ -38,6 +38,7 @@ const Author = sequelize.define('author', {
 const Report = sequelize.define('report', {
     id: {type: DataTypes.INTEGER, primaryKey: true,autoIncrement: true},
     comments: {type: DataTypes.STRING, unique: true},
+    photo: {type: DataTypes.STRING, allowNull: false},
 
 })
 const Image = sequelize.define('image', {

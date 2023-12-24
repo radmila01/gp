@@ -12,6 +12,8 @@ const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
 const swaggerUI = require("swagger-ui-express")
 const swaggerJsDoc = require("swagger-jsdoc")
+const multer = require('multer');
+
 
 const options = {
     definition: {
