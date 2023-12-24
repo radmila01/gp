@@ -40,6 +40,32 @@ class reportController {
             console.error(error);
             res.status(500).json({ message: 'Ошибка добавления отчета', error: error.message });
         }
-    };
+    }
+
+    async getReportById  (req, res)  {
+    try {
+        const { id } = req.params;
+
+        // Используем метод findOne для поиска отчета по идентификатору
+        const report = await Report.findOne({
+            where: { id },
+            include: [{ model: Assembling }] // Если необходимо получить связанные данные из сборки
+        });
+
+        // Проверяем, найден ли отчет
+        if (!report) {
+            return res.status(404).json({ message: 'Отчет не найден' });
+        }
+
+        // Отправляем данные отчета клиенту
+        return res.json(report);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Ошибка получения информации по отчету', error: error.message });
+    }
+}
+
+
+
 }
 module.exports = new reportController()
