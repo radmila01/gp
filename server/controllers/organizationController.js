@@ -53,7 +53,6 @@ class OrganizationController {
         }
     }
 
-
     async getUsersInCompany(req, res) {
         try {
             const { organizationId } = req.params;
@@ -74,7 +73,5 @@ class OrganizationController {
             res.status(500).json({ error: 'Внутренняя ошибка сервера' });
         }
     }
-
-
 }
     module.exports = new OrganizationController()

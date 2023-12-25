@@ -7,13 +7,11 @@ const ApiError = require('../error/apiError');
 const {rows} = require("pg/lib/defaults");
 
 class AssemblingController {
-
-
     async create(req, res) {
 
         try {
-            const {description, version, assemblingNumber} = req.body;
-            const {url} = req.files;
+            const { description, version, assemblingNumber } = req.body;
+            const { url } = req.files;
 
 // Проверяем, что файл данных был передан
             if (!url) {
@@ -38,7 +36,7 @@ class AssemblingController {
             return res.json(assembling);
         } catch (error) {
             console.error(error);
-            res.status(500).json({message: 'Ошибка добавления APK-сборки', error: error.message});
+            res.status(500).json({message: 'Ошибка добавления APK-сборки: ' + `${error.message}`});
         }
 
     }
@@ -59,11 +57,9 @@ class AssemblingController {
             return res.json(assembling);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Ошибка получения сборки', error: error.message });
+            res.status(500).json({ message: 'Ошибка получения сборки: ' + `${error.message}`});
         }
     }
-
-
 }
 
 module.exports = new AssemblingController()

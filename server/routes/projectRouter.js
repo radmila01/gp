@@ -71,9 +71,9 @@ const accountsController = require("../controllers/accountsController");
  *              description: Project not found
  *
  *     delete:
- *       summary: Delete the project
+ *       summary: Delete project
  *       tags: [Projects]
- *       description: Deleting the project
+ *       description: Delete project
  *       operationId: delete
  *       parameters:
  *        - in: path
@@ -81,48 +81,53 @@ const accountsController = require("../controllers/accountsController");
  *          schema:
  *              type: string
  *          required: true
- *          description: The project id
+ *          description: Project id
  *       responses:
  *         '200':
- *           description: The project was deleted.
+ *           description: Project was deleted.
  *
  *   /api/project:
  *     post:
  *       summary: Create a project
  *       tags: [Projects]
- *       description: Creating the project
+ *       description: Create a project
  *       operationId: create
  *       requestBody:
- *         description: Create a new project
+ *         required: true
  *         content:
- *           application/json:
+ *           multipart/form-data:
  *             schema:
  *               type: object
  *               properties:
- *                  id:
- *                      type: integer
- *                  name:
- *                      type: string
- *                  description:
- *                      type: string
- *               example:
- *                  id: 10
- *                  name: Project
- *                  description: Project description
- *         required: true
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 img:
+ *                   type: string
+ *                   format: binary
  *       responses:
  *         '200':
- *           description: Successfully created
- *         '405':
- *           description: Invalid input
+ *           description: Успешно
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   img:
+ *                     type: string
  *
  *     put:
- *       summary: Update the project
+ *       summary: Update project
  *       tags: [Projects]
- *       description: Updating the project
+ *       description: Update project
  *       operationId: update
  *       requestBody:
- *         description: Create a new project
+ *         description: Update project
  *         content:
  *           application/json:
  *             schema:

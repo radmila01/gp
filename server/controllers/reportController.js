@@ -31,14 +31,14 @@ class reportController {
             // Создаем запись в базе данных для отчета
             const report = await Report.create({
                 comments,
-                photoUrl: photoFileName, // Сохраняем имя файла в базе данных
+                photo: photoFileName, // Сохраняем имя файла в базе данных
                 assemblingId: assembling.id // Устанавливаем внешний ключ
             });
 
             return res.json(report);
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: 'Ошибка добавления отчета', error: error.message });
+            res.status(500).json({ message: 'Ошибка добавления отчета: ' + `${error.message}`});
         }
     }
 
@@ -63,9 +63,6 @@ class reportController {
         console.error(error);
         res.status(500).json({ message: 'Ошибка получения информации по отчету', error: error.message });
     }
-}
-
-
-
+    }
 }
 module.exports = new reportController()

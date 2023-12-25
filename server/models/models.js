@@ -10,13 +10,8 @@ const  Accounts = sequelize.define('accounts', {
     email: {type: DataTypes.STRING, unique: true,},
     password: {type: DataTypes.STRING},
      //role: {type: DataTypes.STRING, defaultValue: "USER"},
-     organization: {type: DataTypes.STRING, unique: true},
+    organization: {type: DataTypes.STRING, unique: true},
 })
-
-
-
-
-
 
 const Organization = sequelize.define('organization', {
     id: {
@@ -36,11 +31,11 @@ const Author = sequelize.define('author', {
 })
 
 const Report = sequelize.define('report', {
-    id: {type: DataTypes.INTEGER, primaryKey: true,autoIncrement: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     comments: {type: DataTypes.STRING, unique: true},
     photo: {type: DataTypes.STRING, allowNull: false},
-
 })
+
 const Image = sequelize.define('image', {
     id: {
         type: DataTypes.INTEGER,
@@ -56,7 +51,6 @@ const Image = sequelize.define('image', {
         allowNull: false
     }
 });
-
 
 const Project = sequelize.define('project', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -81,20 +75,18 @@ const Role = sequelize.define('role', {
 })
 
 const Screenshot = sequelize.define('screenshot', {
-    id: {type: DataTypes.INTEGER, primaryKey: true,autoIncrement: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     img: {type: DataTypes.STRING, allowNull: false},
-
 })
 
 const Assembling = sequelize.define('assembling', {
-    id: {type: DataTypes.INTEGER, primaryKey: true},
-    description: {type: DataTypes.STRING, unique: true,},
-    version: {type: DataTypes.STRING, allowNull: false},
-    url: {type: DataTypes.STRING, allowNull: false},
-    assemblingNumber: {type: DataTypes.INTEGER, allowNull: false},
-
-})
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    description: { type: DataTypes.STRING, unique: true },
+    version: { type: DataTypes.STRING, allowNull: false },
+    url: { type: DataTypes.STRING, allowNull: false },
+    assemblingNumber: { type: DataTypes.INTEGER, allowNull: false },
+});
 
 const FcmId = sequelize.define('fcmId', {
     id: {type: DataTypes.INTEGER, primaryKey: true},

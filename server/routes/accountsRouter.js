@@ -2,7 +2,6 @@ const Router = require('express')
 const router = new Router()
 const accountsController = require('../controllers/accountsController')
 
-
 /**
  *@swagger
  *components:
@@ -11,29 +10,33 @@ const accountsController = require('../controllers/accountsController')
  *          type: object
  *          required:
  *              - id
- *              - name
+ *              - nam
  *          properties:
  *              id:
  *                  type: integer
  *                  description: The auto-generated id of the account
- *              name:
+ *              surname:
  *                  type: string
- *                  description: The name of the account
+ *                  description: Account surname
+ *              nam:
+ *                  type: string
+ *                  description: Account name
  *              email:
  *                  type: string
- *                  description: The account email
- *              role:
+ *                  description: Account email
+ *              password:
  *                  type: string
- *                  description: The account role
+ *                  description: Account password
  *              organization:
  *                  type: string
- *                  description: The account organization
+ *                  description: Account organization
  *          example:
  *              id: 7
- *              name: TestAccount
+ *              surname: AccountSurname
+ *              name: AccountName
  *              email: TestEmail@email.com
- *              role: Admin
- *              organization: Test
+ *              password: TestPassword
+ *              organization: TestOrganization
  */
 
 /**
@@ -88,16 +91,19 @@ const accountsController = require('../controllers/accountsController')
  *             schema:
  *               type: object
  *               properties:
+ *                 surname:
+ *                   type: string
+ *                 nam:
+ *                   type: string
  *                 email:
  *                   type: string
  *                 password:
  *                   type: string
- *                 fio:
- *                   type: string
  *               example:
+ *                 surname: userSurname
+ *                 nam: userName
  *                 email: admin@mail.ru
  *                 password: 2efD43_
- *                 fio: ADMIN
  *         required: true
  *       responses:
  *         '200':
@@ -108,12 +114,12 @@ const accountsController = require('../controllers/accountsController')
  *
  *   /api/accounts/login:
  *     post:
- *       summary: Logging to account
+ *       summary: Login to account
  *       tags: [Accounts]
- *       description: Logging to account
+ *       description: Login to account
  *       operationId: login
  *       requestBody:
- *         description: Logging to account
+ *         description: Login to account
  *         content:
  *           application/json:
  *             schema:
@@ -133,35 +139,70 @@ const accountsController = require('../controllers/accountsController')
  *         '405':
  *           description: Invalid input
  *
- *   /api/accounts/auth:
- *      get:
- *        summary: Check JWT
- *        tags: [Accounts]
- *        description: Logging to account
- *        operationId: check
- *        requestBody:
- *         description: Check JWT
+ *   /api/accounts/users/projects/addUserToProject:
+ *     post:
+ *       summary: Добавление пользователя к проекту
+ *       tags: [Accounts]
+ *       description: Добавление пользователя к проекту по фамилии, имени, и почте
+ *       operationId: addUserToProject
+ *       requestBody:
+ *         description: Данные для добавления пользователя к проекту
+ *         required: true
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                  id:
- *                      type: integer
- *                  email:
- *                      type: string
- *                  rolle:
- *                      type: string
- *               example:
- *                  id: 1
- *                  email: admin@mail.ru
- *                  password: 2efD43_
- *         required: true
- *        responses:
+ *                 surname:
+ *                   type: string
+ *                 nam:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 projectId:
+ *                   type: integer
+ *             example:
+ *               surname: "zavalishin"
+ *               nam: "kirill"
+ *               email: "admin@mail.ru"
+ *               projectId: 1
+ *       responses:
  *         '200':
- *           description: Successful
- *         '405':
- *           description: Invalid input
+ *           description: Успешно
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *         '500':
+ *           description: Внутренняя ошибка сервера
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *
+ *
+ *   /api/accounts/delete/{id}:
+ *     delete:
+ *       summary: Delete account
+ *       tags: [Accounts]
+ *       description: Delete account
+ *       operationId: delete
+ *       parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: Account id
+ *       responses:
+ *         '200':
+ *           description: Account was deleted.
  */
 
 /**
@@ -175,11 +216,12 @@ router.post('/', accountsController.registration)
 router.post('/login', accountsController.login)
 
 
-router.get('/auth', accountsController.check)
 router.get('/getAll',accountsController.getAll)
 router.get('/:id',accountsController.getOne)
 router.delete('/delete/:id',accountsController.delete)
 
 router.post('/users/projects/addUserToProject', accountsController.addUserToProject);
+router.post('/auth', accountsController.check)
+
 
 module.exports = router

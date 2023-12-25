@@ -11,13 +11,13 @@ class projectController {
 
     async create(req, res) {
 
-        const {id,name,description} = req.body
+        const {id, name, description} = req.body
         const {img} = req.files
-        let fileName=uuid.v4()+".jpg"
-        img.mv(path.resolve(__dirname ,'..','static',fileName))
-        const project = await  Project.create({id,name:name,description:description,img: fileName})
-        return res.json(project) }
-
+        let fileName= uuid.v4() + ".jpg"
+        img.mv(path.resolve(__dirname , '..', 'static', fileName))
+        const project = await  Project.create({id, name:name, description:description, img: fileName})
+        return res.json(project)
+    }
 
     /* async create(req, res) {
          const {name} = req.body
@@ -39,39 +39,27 @@ class projectController {
     }
 
     async update(req, res) {
-        const {id,name} = req.body
+        const {id, name} = req.body
 
        try { const project = await Project.findOne({where: {id}},)
-
-
         project.name = name
-       // await project.save()
-
-            res.json(project) } catch (e) {
-           
-       }
-
-
+        await project.save()
+            res.json(project) } catch (e) {}
     }
 
-  async delete(req,res) {
-      const {id} = req.body
-     try{ const project = await Project.findOne({where: {id}},)
-
+  async delete(req, res) {
+      const {id} = req.params
+     try {
+        const project = await Project.findOne({where: {id}},)
         project.destroy(
             {
                 where: { id:id }
 
           }).then((res) => {
-          project.log =res
+          project.log = res
       })
-         
-      res.json(project) } catch (e) {
-
+      res.json(project)
+      } catch (e) {}
   }
-
-  }
-
-
 }
 module.exports = new projectController()

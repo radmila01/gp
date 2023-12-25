@@ -15,7 +15,7 @@ class AccountsController {
 
     async registration(req, res, next) {
 
-        const {surname,nam,email, password} = req.body
+        const {surname, nam, email, password} = req.body
         if (!surname || !nam || !email || !password ) {
             return next(ApiError.badRequest('Некорректный email или password'))
         }
@@ -124,11 +124,6 @@ async delete(req, res) {
             return next(ApiError.internal('Произошла ошибка при добавлении пользователя к проекту'));
         }
     }
-
-
-
-
-
 }
 module.exports = new AccountsController()
 
